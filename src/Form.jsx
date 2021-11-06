@@ -68,7 +68,7 @@ const Form = () => {
         const user = { ...fullData };
         console.log(user)
         if (captaverify) {
-            axios.post('http://localhost:8000/register', user)  //https://cine21.herokuapp.com/register
+            axios.post('https://cine21.herokuapp.com/register', user)  //https://cine21.herokuapp.com/register
                 .then(res => {
                     console.log(res);
                     toast.success("Congratulation, You are successfully registered");
