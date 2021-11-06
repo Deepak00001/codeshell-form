@@ -5,6 +5,19 @@ import axios from 'axios'
 import Recaptcha from "react-recaptcha";
 
 const Form = () => {
+
+    const [captaverify , setcaptaverify] = useState(false)
+
+    const verifyCallback = (response) => {
+        console.log(response);
+        if(response){
+            setcaptaverify(true);
+        }
+    }
+
+    var callback = function () {
+        console.log('Done!!!!');
+      };
    const classes = useStyle()
     const [fullData , setFullData] = useState({
         flname : "",
@@ -104,7 +117,8 @@ const Form = () => {
     const onSubmit = (event) => {
         const user = { ...fullData };
         console.log(user)
-        axios.post('https://cine21.herokuapp.com/register', user)
+        if(captaverify){
+            axios.post('https://cine21.herokuapp.com/register', user)
             .then(res => {
                 console.log(res);
                 alert("successfully registered");
@@ -113,6 +127,10 @@ const Form = () => {
                 alert(err);
                 console.log(err);
             })
+        }else{
+            alert("captcha Not verify");
+        }
+        
         event.preventDefault();
     }
 
@@ -151,6 +169,8 @@ const Form = () => {
                     <Recaptcha
                         sitekey="6LcTNxkdAAAAAJR3uwxsfSyEziZD_iDyesnx6Mpl"
                         render="explicit"
+                        verifyCallback={verifyCallback}
+                        onloadCallback={callback}
                     />
                     <div id="btn">
                         <div className="btnborder">
