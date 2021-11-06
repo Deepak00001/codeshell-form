@@ -2,10 +2,10 @@ import React from "react";
 import Form from "./Form";
 
 const App = () => {
-    return(
+    return (
         <>
             <div id="main">
-            <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script> 
+                <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
                 <div id="main1">
                     <div id="mainleft">
                         <div id="mainlefttop">
@@ -18,13 +18,13 @@ const App = () => {
                         </div>*/}
                         <div id="mainleftbottom">
                             <img src="../image/centerlogo1.png" alt="centerlogo" id="centerlogo" />
-                        </div> 
-                        
+                        </div>
+
                     </div>
                     <div id="mainright">
                         <div id="formm">
-                        <h1 id="registermain"><span id="registermain1"><img src="../image/backg.png" alt="csilogo" id="registermain2" /></span>Register Now</h1>
-                            <Form/>
+                            <h1 id="registermain"><span id="registermain1"><img src="../image/backg.png" alt="csilogo" id="registermain2" /></span>Register Now</h1>
+                            <Form />
                         </div>
                     </div>
 

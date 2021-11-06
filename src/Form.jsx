@@ -1,31 +1,48 @@
-
 import React, { useState } from "react";
 import { Button, colors, TextField } from "@material-ui/core";
 import useStyle from './style'
 import axios from 'axios'
 import Recaptcha from "react-recaptcha";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Form = () => {
 
     const [captaverify, setcaptaverify] = useState(false)
 
+
+    var date1;
     const verifyCallback = (response) => {
-        console.log(response);
+
+        // console.log(response);
         if (response) {
+            console.log(date1)
             setcaptaverify(true);
+            console.log(response)
         }
     }
+
+
+    // const date1 = new Date("2021-08-11T17:28:03.880+00:00");
+    // const date2 = new Date("2021-08-11T17:23:29.793+00:00");
+    // const diffDays = parseInt((date1 - date2) / (1000 * 60)); //gives day difference
+    // //one_day means 1000*60*60*24
+    // //one_hour means 1000*60*60
+    // //one_minute means 1000*60
+    // //one_second means 1000
+    // console.log(diffDays)
+
 
     var callback = function () {
         console.log('Done!!!!');
     };
     const classes = useStyle()
     const [fullData, setFullData] = useState({
-        flname: "",
+        name: "",
         studentNumber: "",
-        rollNumber: "",
+        year: "",
         email: "",
-        mobileNumber: "",
+        phoneNumber: "",
         branch: "",
         hackerrank: "",
     })
@@ -38,78 +55,10 @@ const Form = () => {
         const name = event.target.name;
 
         setFullData((preValue) => {
-            console.log(preValue);
-            // setFullData({ ...fullData, [name]: value })
-            if (name === "flName") {
-                return {
-                    flname: value,
-                    studentNumber: preValue.studentNumer,
-                    rollNumber: preValue.rollNumber,
-                    email: preValue.email,
-                    mobileNumber: preValue.mobileNumber,
-                    branch: preValue.branch,
-                    hackerrank: preValue.hackerrank,
-                }
-            } else if (name === "studentNumber") {
-                return {
-                    flname: preValue.flname,
-                    studentNumber: value,
-                    rollNumber: preValue.rollNumber,
-                    email: preValue.email,
-                    mobileNumber: preValue.mobileNumber,
-                    branch: preValue.branch,
-                    hackerrank: preValue.hackerrank,
-                };
-            } else if (name === "rollNumber") {
-                return {
-                    flname: preValue.flname,
-                    studentNumber: preValue.studentNumber,
-                    rollNumber: value,
-                    email: preValue.email,
-                    mobileNumber: preValue.mobileNumber,
-                    branch: preValue.branch,
-                    hackerrank: preValue.hackerrank,
-                };
-            } else if (name === "email") {
-                return {
-                    flname: preValue.flname,
-                    studentNumber: preValue.studentNumber,
-                    rollNumber: preValue.rollNumber,
-                    email: value,
-                    mobileNumber: preValue.mobileNumber,
-                    branch: preValue.branch,
-                    hackerrank: preValue.hackerrank,
-                };
-            } else if (name === "mobileNumber") {
-                return {
-                    flname: preValue.flname,
-                    studentNumber: preValue.studentNumber,
-                    rollNumber: preValue.rollNumber,
-                    email: preValue.email,
-                    mobileNumber: value,
-                    branch: preValue.branch,
-                    hackerrank: preValue.hackerrank,
-                };
-            } else if (name === "branch") {
-                return {
-                    flname: preValue.flname,
-                    studentNumber: preValue.studentNumber,
-                    rollNumber: preValue.rollNumber,
-                    email: preValue.email,
-                    mobileNumber: preValue.mobileNumber,
-                    branch: value,
-                    hackerrank: preValue.hackerrank,
-                };
-            } else if (name === "hackerrank") {
-                return {
-                    flname: preValue.flname,
-                    studentNumber: preValue.studentNumber,
-                    rollNumber: preValue.rollNumber,
-                    email: preValue.email,
-                    mobileNumber: preValue.mobileNumber,
-                    branch: preValue.branch,
-                    hackerrank: value,
-                };
+
+            return {
+                ...preValue,
+                [name]: value
             }
         })
 
@@ -119,17 +68,21 @@ const Form = () => {
         const user = { ...fullData };
         console.log(user)
         if (captaverify) {
-            axios.post('https://cine21.herokuapp.com/register', user)
+            axios.post('http://localhost:8000/register', user)  //https://cine21.herokuapp.com/register
                 .then(res => {
                     console.log(res);
-                    alert("successfully registered");
+                    toast.success("Congratulation, You are successfully registered");
+                    setcaptaverify(false);
+                    event.preventDefault(true);
                 })
                 .catch(err => {
-                    alert(err);
+                    toast.warn('User already Exist', {
+                        position: "top-center"
+                    });
                     console.log(err);
                 })
         } else {
-            alert("captcha Not verify");
+            toast("Please verify captcha again");
         }
 
         event.preventDefault();
@@ -139,12 +92,12 @@ const Form = () => {
         <>
             <div id="formmain">
                 <form onSubmit={onSubmit}>
-                    <input id="input1" type="text" placeholder="Full Name" name="flName" onChange={inputEvent} value={fullData.flname} required/>
-                    <input id="input2" type="text" placeholder="Student Number" name="studentNumber" onChange={inputEvent} value={fullData.studentNumber} maxLength="7" minLength="7" required/>
-                    <input id="input3" type="text" placeholder="Roll Number" name="rollNumber" onChange={inputEvent} value={fullData.rollNumber} maxLength="13" minLength="13" required/>
-                    <input id="input4" type="text" placeholder="College Email(stno@akgec.ac.in)" name="email" onChange={inputEvent} value={fullData.email} required/>
-                    <input id="input5" type="text" placeholder="Whatsapp Number" name="mobileNumber" onChange={inputEvent} value={fullData.mobileNumber} maxLength="10" minLength="10" required/>
-                    <select id="select1" name="branch" onChange={inputEvent} value={fullData.branch} required>
+                    <input id="input1" type="text" required placeholder="Full Name" name="name" onChange={inputEvent} value={fullData.name} />
+                    <input id="input2" type="text" required maxLength={7} minLength={7} placeholder="Student Number" name="studentNumber" onChange={inputEvent} value={fullData.studentNumber} />
+                    <input id="input3" type="text" maxLength={1} minLength={1} required placeholder="Year (1, 2, 3)" name="year" onChange={inputEvent} value={fullData.year} />
+                    <input id="input4" type="email" required placeholder="College Email(stno@akgec.ac.in)" name="email" onChange={inputEvent} value={fullData.email} />
+                    <input id="input5" type="text" required placeholder="Whatsapp Number" name="phoneNumber" onChange={inputEvent} value={fullData.phoneNumber} />
+                    <select id="select1" name="branch" maxLength={10} minLength={10} onChange={inputEvent} value={fullData.branch}>
                         <option style={{ color: "#5d5c61" }} value="BRANCH">Branch</option>
                         <option value="CSE">CSE</option>
                         <option value="CS">CS</option>
@@ -153,12 +106,12 @@ const Form = () => {
                         <option value="CSIT">CSIT</option>
                         <option value="IT">IT</option>
                         <option value="ECE">ECE</option>
-                        <option value="ECE">ME</option>
-                        <option value="ECE">EI</option>
-                        <option value="ECE">EN</option>
-                        <option value="ECE">CE</option>
+                        <option value="ME">ME</option>
+                        <option value="EI">EI</option>
+                        <option value="EN">EN</option>
+                        <option value="CE">CE</option>
                     </select>
-                    <input id="input6" type="text" placeholder="Hackerrank Id" name="hackerrank" onChange={inputEvent} value={fullData.hackerrank} required/>
+                    <input id="input6" type="text" placeholder="Hackerrank Id" name="hackerrank" onChange={inputEvent} value={fullData.hackerrank} />
 
 
                     {/* <select id="select2" name="residency" value={fullData.residency}  onChange={inputEvent}>
@@ -183,6 +136,17 @@ const Form = () => {
                     </div>
                 </form>
             </div>
+            <ToastContainer
+            // position="top-right"
+            // autoClose={5000}
+            // hideProgressBar={false}
+            // newestOnTop={false}
+            // closeOnClick
+            // rtl={false}
+            // pauseOnFocusLoss
+            // draggable
+            // pauseOnHover
+            />
         </>
     );
 }
