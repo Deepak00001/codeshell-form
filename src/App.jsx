@@ -22,8 +22,8 @@ const App = () => {
                         
                     </div>
                     <div id="mainright">
-                        <h1 id="registermain"><span id="registermain1"><img src="../image/backg.png" alt="csilogo" id="registermain2" /></span>Register Now</h1>
                         <div id="formm">
+                        <h1 id="registermain"><span id="registermain1"><img src="../image/backg.png" alt="csilogo" id="registermain2" /></span>Register Now</h1>
                             <Form/>
                         </div>
                     </div>

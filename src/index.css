@@ -87,8 +87,9 @@
 }
 
 #registermain{
-   font-size: 50px;
-   color: black;
+  font-size: 40px;
+  color: black;
+  margin-bottom: -15px;
 }
 
 
@@ -96,7 +97,7 @@
 
 #formm{
    margin-top: 20px;
-   height: 85%;
+   height: 100vh;
    width: 90%;
    border-radius: 25px;
    background-color:#B0BAE9;
@@ -119,7 +120,7 @@
 
 input{
    width: 90%;
-   height: 40px;
+   height: 1.8rem;
    border: 3px solid;
    background: transparent;
    border-radius: 5px;
@@ -133,7 +134,7 @@ input{
 }
 input::placeholder {
   color: #5d5c61;
-  padding: 10px;
+  padding: 10px ;
   font-weight: 400;
 }
 #outlined-basic{
@@ -150,12 +151,12 @@ input::placeholder {
 }
 select{
   width: 91%;
-  height: 43px;
+  height: 2rem;
   border: 3px solid;
   background: transparent;
   color: black;
   font-weight: 550;
-  padding-left: 10px;
+  /* padding-left: 10px; */
   font-size: 18px;
   text-decoration: none;
   border-radius: 5px;
@@ -179,9 +180,15 @@ select option{
 margin-top: 20px;
 margin-bottom: 20px;
 }
-
-
-
+/*************************************************recaptcha************************************************/
+.recaptcha{
+  display: flex;
+  width: 90%;
+  justify-content: center;
+  padding-top: 10px;
+  transform:scale(0.95);
+    transform-origin:0 0;
+}
 
 
 
@@ -201,16 +208,16 @@ margin-bottom: 20px;
       overflow: auto;
   }
   #main1{
-      width: 85%;
-      height: 90%;
-      background-size: cover;
-      border: 3.2px solid;
-      border-radius: 50px;
-      border-color: #0525BC;
-      
-      background-color: white;
-      opacity: 0.7;
-      
+    width: 85%;
+    height: 100vh;
+    background-size: cover;
+    border: 3.2px solid;
+    border-radius: 50px;
+    border-color: #0525BC;
+    background-color: white;
+    opacity: 0.7;
+    overflow: auto;
+    scrollbar-color: white;
   }
   #mainright{
       width: 100%;
@@ -278,6 +285,11 @@ margin-bottom: 20px;
   #formmain{
       margin-top: 10%;
   }
+  .recaptcha {
+    width: 130%;
+    transform: scale(0.7);
+    transform-origin:0 0;
+  }
 }
 
 /* @media (max-height : 450px){
@@ -342,12 +354,17 @@ margin-bottom: 20px;
   }
   #formm{
       margin-top: 30px;
-      height: 70%;
-      overflow: hidden;
+      /* height: 70%; */
+      /* overflow: hidden; */
   }
   #formmain{
       width: 90%;
       margin-top: 10%;
+  }
+  .recaptcha {
+    width: 137%;
+    transform: scale(0.65);
+    transform-origin:0 0;
   }
 }
 
@@ -374,7 +391,7 @@ margin-bottom: 20px;
 
   input{
       width: 93%;
-      height: 40px;
+      height: 1.8rem;
       border: 2.5px solid;
       background: transparent;
       border-radius: 4px;
@@ -386,7 +403,7 @@ margin-bottom: 20px;
   }
    select{
      width: 95%;
-     height: 44px;
+     height: 2rem;
      border: 3px solid;
      background: transparent;
      color: #303B40;
@@ -398,5 +415,9 @@ margin-bottom: 20px;
      margin-top: 10px;
      /* color: tomato; */
  }
-
+ .recaptcha {
+  width: 127%;
+  transform:scale(0.7);
+  transform-origin:0 0;
+}
 };
