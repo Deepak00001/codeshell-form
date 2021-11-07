@@ -17,7 +17,7 @@ const App = () => {
                             <h1 id="heading">CINE'2021</h1>
                         </div>*/}
                         <div id="mainleftbottom">
-                            <img src="../image/centerlogo1.png" alt="centerlogo" id="centerlogo" />
+                            <img src="../image/centerlogo2.png" alt="centerlogo" id="centerlogo" />
                         </div>
 
                     </div>
