@@ -92,10 +92,11 @@ const Form = () => {
         <>
             <div id="formmain">
                 <form onSubmit={onSubmit}>
+                <img src="../image/s3.svg" alt="fbg" id="back" />
                     <input id="input1" type="text" required placeholder="Full Name" name="name" onChange={inputEvent} value={fullData.name} />
                     <input id="input2" type="text" required maxLength={7} minLength={7} placeholder="Student Number" name="studentNumber" onChange={inputEvent} value={fullData.studentNumber} />
                     <input id="input3" type="text" maxLength={1} minLength={1} required placeholder="Year (2, 3, 4)" name="year" onChange={inputEvent} value={fullData.year} />
-                    <input id="input4" type="email" required placeholder="College Email(stno@akgec.ac.in)" name="email" onChange={inputEvent} value={fullData.email} />
+                    <input id="input4" type="email" required placeholder="College Email(@akgec.ac.in)" name="email" onChange={inputEvent} value={fullData.email} />
                     <input id="input5" type="text" required placeholder="Whatsapp Number" name="phoneNumber" onChange={inputEvent} value={fullData.phoneNumber} />
                     <select id="select1" name="branch" maxLength={10} minLength={10} onChange={inputEvent} value={fullData.branch}>
                         <option style={{ color: "#5d5c61" }} value="BRANCH">Branch</option>
@@ -134,6 +135,7 @@ const Form = () => {
                             <Button type="submit" variant="contained" size="large" className={classes.button} id="submitbtn">Submit</Button>
                         </div>
                     </div>
+                    {/* <img src="../image/c2.svg" alt="fbg1" id="back1" /> */}
                 </form>
             </div>
             <ToastContainer
