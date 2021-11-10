@@ -92,7 +92,7 @@ const Form = () => {
         <>
             <div id="formmain">
                 <form onSubmit={onSubmit}>
-                <img src="../image/s3.svg" alt="fbg" id="back" />
+                <img src="../image/S3.svg" alt="fbg" id="back" />
                     <input id="input1" type="text" required placeholder="Full Name" name="name" onChange={inputEvent} value={fullData.name} />
                     <input id="input2" type="text" required maxLength={7} minLength={7} placeholder="Student Number" name="studentNumber" onChange={inputEvent} value={fullData.studentNumber} />
                     <input id="input3" type="text" maxLength={1} minLength={1} required placeholder="Year (2, 3, 4)" name="year" onChange={inputEvent} value={fullData.year} />
