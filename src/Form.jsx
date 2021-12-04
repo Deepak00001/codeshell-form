@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, colors, TextField } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import useStyle from './style'
 import axios from 'axios'
 import Recaptcha from "react-recaptcha";
@@ -8,15 +8,13 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Form = () => {
 
-    const [captaverify, setcaptaverify] = useState(false)
+    const [captaverify, setcaptaverify] = useState(false);
+    const [verifyEmail, setVerifyEmail] = useState(false);
 
-
-    var date1;
+    // var date1;
     const verifyCallback = (response) => {
-
-        // console.log(response);
         if (response) {
-            console.log(date1)
+            // console.log(date1)
             setcaptaverify(true);
             console.log(response)
         }
@@ -48,43 +46,57 @@ const Form = () => {
     })
 
     const inputEvent = (event) => {
-        console.log(event.target.value);
-        console.log(event.target.name);
-
+        // console.log(event.target.value);
+        // console.log(event.target.name);
         const value = event.target.value;
         const name = event.target.name;
-
         setFullData((preValue) => {
-
             return {
                 ...preValue,
                 [name]: value
             }
         })
-
     };
+    const Validate = () => {
+        let email = fullData.email;
+        let eletters = /^[a-z0-9](\.?[a-z0-9]){5,}@akgec\.ac\.in$/;
+            if(eletters.test(email)){
+                setVerifyEmail(true);
+               }
+            else{
+                setVerifyEmail(false);
+            }
+    }
 
     const onSubmit = (event) => {
         const user = { ...fullData };
-        console.log(user)
-        if (captaverify) {
-            axios.post('https://cine21.herokuapp.com/register', user)  //https://cine21.herokuapp.com/register
-                .then(res => {
-                    console.log(res);
-                    toast.success("Congratulation, You are successfully registered");
-                    setcaptaverify(false);
-                    event.preventDefault(true);
-                })
-                .catch(err => {
-                    toast.warn('User already Exist', {
-                        position: "top-center"
-                    });
-                    console.log(err);
-                })
-        } else {
-            toast("Please verify captcha again");
+        console.log(user);
+        Validate();
+        if(verifyEmail)
+        {
+            if (captaverify) {
+                axios.post('https://cine21.herokuapp.com/register', user)
+                    .then(res => {
+                        console.log(res);
+                        toast.success("Congratulation, You are successfully registered");
+                        setcaptaverify(false);
+                        event.preventDefault(true);
+                    })
+                    .catch(err => {
+                        toast.warn('Error', {
+                            position: "top-center"
+                        });
+                        console.log(err);
+                    })
+            } 
+            else {
+                toast("Please verify captcha again");
+            }
         }
-
+        else
+        {
+            toast.warn("Email is not valid");
+        } 
         event.preventDefault();
     }
 
@@ -94,12 +106,18 @@ const Form = () => {
                 <form onSubmit={onSubmit}>
                 <img src="../image/S3.svg" alt="fbg" id="back" />
                     <input id="input1" type="text" required placeholder="Full Name" name="name" onChange={inputEvent} value={fullData.name} />
-                    <input id="input2" type="text" required maxLength={7} minLength={7} placeholder="Student Number" name="studentNumber" onChange={inputEvent} value={fullData.studentNumber} />
-                    <input id="input3" type="text" maxLength={1} minLength={1} required placeholder="Year (2, 3, 4)" name="year" onChange={inputEvent} value={fullData.year} />
-                    <input id="input4" type="email" required placeholder="College Email(@akgec.ac.in)" name="email" onChange={inputEvent} value={fullData.email} />
-                    <input id="input5" type="text" required placeholder="Whatsapp Number" name="phoneNumber" onChange={inputEvent} value={fullData.phoneNumber} />
-                    <select id="select1" name="branch" maxLength={10} minLength={10} onChange={inputEvent} value={fullData.branch}>
-                        <option style={{ color: "#5d5c61" }} value="BRANCH">Branch</option>
+                    <input id="input2" type="number" required maxLength={7} minLength={7} placeholder="Student Number" name="studentNumber" onChange={inputEvent} value={fullData.studentNumber} />
+                    {/* <input id="input3" type="text" maxLength={1} minLength={1} required placeholder="Year (2, 3, 4)" name="year" onChange={inputEvent} value={fullData.year} /> */}
+                    <select id="select1" name="year" onChange={inputEvent} value={fullData.year}>
+                        <option value="YEAR">Year</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    <input id="input4" type="email" required placeholder="College Email(@akgec.ac.in)" name="email" onChange={inputEvent} value={fullData.email}/>
+                    <input id="input5" type="number" required maxLength={10} minLength={10} placeholder="Whatsapp Number" name="phoneNumber" onChange={inputEvent} value={fullData.phoneNumber} />
+                    <select id="select1" name="branch"  onChange={inputEvent} value={fullData.branch}>
+                        <option value="BRANCH">Branch</option>
                         <option value="CSE">CSE</option>
                         <option value="CS">CS</option>
                         <option value="CSE(DS)">CSE(DS)</option>
